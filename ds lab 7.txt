@@ -1,0 +1,178 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  char usn[10],name[10],branch[5],phno[10];
+  int sem;
+  struct node*link;
+};
+typedef struct node*NODE;
+NODE temp,FIRST=NULL;
+NODE getnode()
+{
+  NODE x;
+  x=((NODE)malloc(sizeof (struct node)));
+  return x;
+}
+void read()
+{
+    temp=getnode();
+    printf("enter usn\n");
+    scanf("%s",temp->usn);
+  printf("enter name\n");
+    scanf("%s",temp->name);
+    printf("enter branch");
+    scanf("%s",temp->branch);
+    printf("enter phno\n");
+    scanf("%s",temp->phno);
+    printf("enter sem\n");
+    scanf("%d",&temp->sem);
+}
+void create()
+{
+    int n,i=1;
+    printf("enter the no of students\n");
+    scanf("%d",&n);
+    while(i<=n)
+    {
+        printf("enter the details of the student\n ");
+        read();
+        if(FIRST==NULL)
+        {
+          FIRST=temp;
+        }
+        else
+        {
+            temp->link=FIRST;
+            FIRST=temp;
+        }
+    }
+}
+void display(NODE FIRST)
+{
+    temp=FIRST;
+    int i,count=1;
+  printf("student details:\n");
+  if(FIRST==NULL)
+  {
+      printf("student deatils is null\n");
+
+  }
+  else
+  {
+      while(temp->link!=NULL)
+      {
+        count++;
+        printf("%s\t%s\t%s\t%s\t%d\n",temp->usn,temp->name,temp->branch,temp->phno,temp->sem);
+        temp=temp->link;
+      }
+      printf("%s\t%s\t%s\t%s\t%d\n",temp->usn,temp->name,temp->branch,temp->phno,temp->sem);
+      printf("student count is %d\n",count);
+  }
+  return;
+}
+void insertionfront()
+{
+    printf("enter the details of the students\n");
+    read();
+      if(FIRST==NULL)
+      {
+          FIRST=temp;
+      }
+      else
+      {
+          temp->link=FIRST;
+          FIRST=temp;
+      }
+}
+NODE insertionend(NODE FIRST)
+{
+  NODE last=FIRST;
+  printf("enter the details of the student\n ");
+  if(last!=NULL)
+  {
+     
+     while(last->link!=NULL)\
+      {
+          last=last->link;
+
+      }
+      last->link=temp;
+  }
+  else
+  {
+      FIRST=temp;
+ }
+ return FIRST;
+}
+void deletionfront()
+{
+    printf("enter the student detail\n");
+    read();
+    if(FIRST==NULL)
+    {
+        printf("list empty\n");
+    }
+    else
+    {
+      printf("deleted element is %s\n",temp->usn);
+      FIRST=temp->link;
+      free(temp);      
+    }    
+    return;
+    }
+    void deletionend()
+    {
+        NODE pre=NULL;
+        temp=FIRST;
+          if(FIRST==NULL)
+          {
+              printf("list is empty\n");
+
+          }
+          else if(temp->link==NULL)
+          {
+            printf("deleted element is %s\n",temp->usn);
+            free(temp);
+            FIRST=NULL;
+          }  
+          else
+          {
+              pre=temp;
+             temp= temp->link;
+          } 
+          printf("deleted elements is %s \n",temp->usn);
+          free(temp);
+ }
+ int main()
+{
+  int choice ;
+  while(1)
+  {
+      printf("--------------menu---------------\n");
+      printf("1-create a sll\n");
+      printf("2-display sll\n");
+      printf("3-insertion at front\n");
+      printf("4-insertion at end\n");
+      printf("5-deletion at front\n");
+      printf("6-deletion at end\n");
+      printf("enter your choice:");
+      scanf("%d",&choice);
+      switch(choice)
+      {
+          case 1:create();
+                    break;
+          case 2: display(FIRST);
+                  break;
+          case 3: insertionfront();
+                  break;
+          case 4:insertionend( FIRST);
+                break;
+            case 5: deletionfront();
+                    break;
+            case 6:deletionend();
+                    break;
+            case 7:printf("invalid choice\n");
+         }
+  }
+}

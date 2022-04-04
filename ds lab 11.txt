@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+int a[20][20],q[20],visited[20],reach[20];
+int n,i,j,front=0,rear=-1,count;
+
+void bfs(int v)
+{
+    for(i=1;i<=n;i++)
+        if(a[v][i]&&!visited[i])
+            q[rear]=i;
+        else if(front<=rear)
+            visited[q[front]]=1;
+            bfs(front++);
+}
+void dfs(int v)
+{
+  int i;
+  visited[v]=1;
+  for(i=1;i<=n;i++)
+  {
+      if(a[v][i]&&!visited[i])
+      {
+      printf("%d->%d",v,i);
+      count++;
+      dfs(i); 
+       }
+}
+}
+int main()
+{
+    int v,ch;
+    printf("enter no of cities\n");
+    scanf("%d",&n);
+    printf("enter in matrix form\n");
+    for(i=0;i<n;i++)
+      for(j=0;j<n;j++)
+        scanf("%d",&a[v][i]);
+        while(1)
+        {
+            printf("1-connectivity\n");
+            printf("2-reachability\n");
+            printf("enter your choice\n");
+            scanf("%d",&ch);
+            switch(ch)
+            {
+                case 1:printf("enter the vertex\n");
+                scanf("%d\n",&v);
+                if(v<1||v>n)
+                  printf("enter valid vertex\n");
+                else
+                {
+                  for(i=1;i<=n;i++)
+                    reach[i]=0;
+                    reach[v]=1;
+                    bfs(v);
+                printf("reachable nodes are %d",v);
+                for(i=1;i<=n;i++)
+                {
+                    printf("%d",n);
+                }   
+                }           
+                break;
+                case 2:for(i=1;i<=n;i++)
+                        printf("enter source vertex\n");
+                        count=0;
+                        scanf("%d",&v);
+                        dfs(v);
+                        if(count==n-1)
+                        printf("connected\n");
+                        else{
+                            printf("not connected\n");
+
+                        }
+                  case 3:
+                  printf("invalid choice\n");
+
+            
+            }
+        }
+}
